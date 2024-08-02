@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b62364b65t24o"]
+
+[ext_resource type="TileSet" uid="uid://bc4uburaqmj7a" path="res://resources/stringstar_fields.tres" id="1_sb4p7"]
+
+[node name="StringstarFields" type="TileMap"]
+tile_set = ExtResource("1_sb4p7")
+format = 2
