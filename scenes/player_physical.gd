@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-@export var SPEED = 300.0
-@export var ROLL_SPEED = 300.0
+@export var SPEED = 180.0
+@export var ROLL_SPEED = 280.0
 @export var JUMP_VELOCITY = -400.0
 @export var MIN_ROLL_SEC = 0.4
 
