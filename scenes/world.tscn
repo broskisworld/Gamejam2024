@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cfdlypqk5lkyr"]
+[gd_scene load_steps=7 format=3 uid="uid://cfdlypqk5lkyr"]
 
 [ext_resource type="PackedScene" uid="uid://ctfvpgeuru1ef" path="res://scenes/player_physical.tscn" id="2_dq8rv"]
 [ext_resource type="PackedScene" uid="uid://b62364b65t24o" path="res://scenes/stringstar_fields.tscn" id="2_y0a4x"]
+[ext_resource type="PackedScene" uid="uid://c5fu14ge8x5u" path="res://scenes/player_spirit.tscn" id="3_tx0l5"]
+[ext_resource type="PackedScene" uid="uid://bexqbrr0yw4if" path="res://scenes/hangskull_mountain.tscn" id="4_uuee7"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_yp1u2"]
 
@@ -26,3 +28,9 @@ layer_0/tile_data = PackedInt32Array(655365, 917504, 9, 655366, 983040, 9, 65536
 
 [node name="PlayerPhysical" parent="." instance=ExtResource("2_dq8rv")]
 position = Vector2(128, 104)
+
+[node name="PlayerSpirit" parent="." instance=ExtResource("3_tx0l5")]
+position = Vector2(178, 104)
+
+[node name="HangskullMountain" parent="." instance=ExtResource("4_uuee7")]
+layer_0/tile_data = PackedInt32Array(655361, 262144, 9, 655362, 327680, 9, 655363, 393216, 9, 655364, 262144, 9, 655365, 327680, 9, 655366, 393216, 9, 655367, 262144, 9, 655368, 327680, 9, 655369, 262144, 9, 655370, 327680, 9, 655371, 393216, 9, 786444, 262144, 9, 786445, 327680, 9, 786446, 393216, 9, 786447, 262144, 9, 786448, 327680, 9, 786449, 393216, 9, 786450, 262144, 9, 786451, 327680, 9, 786452, 393216, 9, 720918, 262144, 9, 720919, 327680, 9, 720920, 393216, 9, 786453, 262144, 9, 786454, 327680, 9, 786455, 393216, 9, 720921, 262144, 9, 720922, 327680, 9, 720923, 262144, 9, 720924, 327680, 9, 720925, 393216, 9, 720905, 262144, 9, 720906, 327680, 9, 720907, 393216, 9, 786441, 262144, 9, 786442, 327680, 9, 786443, 393216, 9, 786430, 262144, 9, 786431, 327680, 9, 720896, 393216, 9, 720897, 262144, 9, 720898, 327680, 9, 720899, 393216, 9)

@@ -18,7 +18,7 @@ var roll_countdown = 0
 @onready var sprite = $Sprite2D;
 
 func _ready():
-	GlobalPlayer.physical_body = self
+	GlobalPlayer.spirit_body = self
 
 func _physics_process(delta):
 	# Start of loop status vars
@@ -35,7 +35,7 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	
-	if GlobalPlayer.is_controlling_physical:
+	if GlobalPlayer.is_controlling_spirit:
 		handle_movement_input()
 	
 	update_animation()
@@ -86,7 +86,7 @@ func start_roll():
 func update_animation():
 	if false:
 		pass
-	elif !GlobalPlayer.is_controlling_physical:
+	elif !GlobalPlayer.is_controlling_spirit:
 		if GlobalPlayer.just_changed_bodies:
 			ap.play("meditate_start")
 		else:
@@ -102,7 +102,7 @@ func update_animation():
 	else:
 		ap.play("idle")
 	
-	if GlobalPlayer.is_controlling_physical and Input.get_axis("move_left", "move_right") != 0:
+	if GlobalPlayer.is_controlling_spirit and Input.get_axis("move_left", "move_right") != 0:
 		sprite.flip_h = (Input.get_axis("move_left", "move_right") == -1)
 	
 	#is_rolling = ap.current_animation == "roll";
