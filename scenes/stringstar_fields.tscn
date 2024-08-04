@@ -1,7 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://b62364b65t24o"]
+[gd_scene load_steps=3 format=3 uid="uid://b62364b65t24o"]
 
 [ext_resource type="TileSet" uid="uid://bc4uburaqmj7a" path="res://resources/stringstar_fields.tres" id="1_sb4p7"]
+[ext_resource type="Script" path="res://scenes/physical_world_entity.gd" id="2_tgveg"]
 
 [node name="StringstarFields" type="TileMap"]
 tile_set = ExtResource("1_sb4p7")
 format = 2
+script = ExtResource("2_tgveg")

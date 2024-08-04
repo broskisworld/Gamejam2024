@@ -19,6 +19,7 @@ var roll_countdown = 0
 
 func _ready():
 	GlobalPlayer.spirit_body = self
+	GlobalPlayer.changed_bodies_sig.connect(on_swapped_bodies)
 
 func _physics_process(delta):
 	# Start of loop status vars
@@ -37,6 +38,8 @@ func _physics_process(delta):
 	
 	if GlobalPlayer.is_controlling_spirit:
 		handle_movement_input()
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 	update_animation()
 	
@@ -76,6 +79,12 @@ func handle_movement_input():
 			velocity.x = direction * SPEED
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
+
+func on_swapped_bodies():
+	if GlobalPlayer.is_controlling_spirit:
+		sprite.modulate.a = 1.0
+	else:
+		sprite.modulate.a = 0.9
 
 func start_roll():
 	if not is_rolling:

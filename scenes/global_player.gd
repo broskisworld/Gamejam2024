@@ -2,6 +2,8 @@ extends Node
 
 @export var DEFAULT_TO_PHYSICAL_BODY = true
 
+signal changed_bodies_sig
+
 var physical_body = null
 var spirit_body = null
 var is_controlling_physical = DEFAULT_TO_PHYSICAL_BODY
@@ -18,6 +20,7 @@ func _process(delta):
 		is_controlling_physical = !is_controlling_physical
 		is_controlling_spirit = !is_controlling_spirit
 		just_changed_bodies = true
+		changed_bodies_sig.emit()
 	else:
 		just_changed_bodies = false
 	pass

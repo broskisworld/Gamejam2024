@@ -401,6 +401,8 @@ collision_mask = 3
 script = ExtResource("1_5xhju")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visibility_layer = 257
+z_index = 10
 position = Vector2(0, -56)
 texture = ExtResource("2_0vdku")
 hframes = 25
@@ -416,7 +418,3 @@ libraries = {
 "": SubResource("AnimationLibrary_yq52v")
 }
 autoplay = "idle"
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -19)
-position_smoothing_enabled = true

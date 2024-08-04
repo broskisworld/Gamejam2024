@@ -94,6 +94,10 @@ swap_character={
 
 [layer_names]
 
+2d_render/layer_1="physical_tiles"
+2d_render/layer_2="physical_characters"
+2d_render/layer_9="spirit_tiles"
+2d_render/layer_10="spirit_characters"
 2d_physics/layer_1="physical_tiles"
 2d_physics/layer_2="physical_characters"
 2d_physics/layer_9="spirit_tiles"

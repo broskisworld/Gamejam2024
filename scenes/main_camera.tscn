@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://fksr6vql6514"]
+
+[ext_resource type="Script" path="res://main_camera.gd" id="1_2hlo7"]
+
+[node name="MainCamera" type="Camera2D"]
+position_smoothing_enabled = true
+script = ExtResource("1_2hlo7")
