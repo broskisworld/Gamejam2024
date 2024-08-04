@@ -5,8 +5,14 @@ extends CharacterBody2D
 @export var JUMP_VELOCITY = -400.0
 @export var MIN_ROLL_SEC = 0.4
 @export var WALL_JUMP_VELOCITY = Vector2(400.0, -400.0)
+@export var STARTING_HEALTH = 6
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
+# Health & progression
+var health = STARTING_HEALTH
+signal health_change_sig
+signal die_sig
+
+# Physics & controls
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction = 0
 var was_on_floor = false
@@ -57,6 +63,10 @@ func _physics_process(delta):
 	move_and_slide()
 	
 func handle_movement_input():
+	# Debug: decrement health
+	if Input.is_action_just_pressed("debug_health"):
+		hurt(1)
+	
 	# Handle jump.
 	if Input.is_action_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
@@ -123,6 +133,25 @@ func start_wall_jump():
 		velocity.y = WALL_JUMP_VELOCITY.y
 		velocity.x = direction * WALL_JUMP_VELOCITY.x
 		wall_jump_control_lock = true
+
+func heal(amt):
+	health += amt
+	# TODO: play heal sound
+	health_change_sig.emit()
+
+func hurt(amt):
+	health -= amt
+	$HealthSprite.frame_coords.y = 6 - health
+	# TODO: play hurt sound
+	
+	if health <= 0:
+		die()
+	else:
+		health_change_sig.emit()
+
+func die():
+	die_sig.emit()
+	get_tree().set_current_scene(preload("res://scenes/death_ui.tscn").instantiate())
 
 func update_animation():
 	if false:

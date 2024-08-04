@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://ctfvpgeuru1ef"]
+[gd_scene load_steps=20 format=3 uid="uid://ctfvpgeuru1ef"]
 
 [ext_resource type="Script" path="res://scenes/player_physical.gd" id="1_5xhju"]
 [ext_resource type="Texture2D" uid="uid://cxhfyq323jt0s" path="res://assets/elementals_custom/earth/earth_v1_ONLY_IDLE_DONE.png" id="2_0vdku"]
+[ext_resource type="Texture2D" uid="uid://cqimf18htsslw" path="res://assets/ui/health.png" id="3_frtcm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ynpa"]
 size = Vector2(20, 36)
@@ -433,3 +434,10 @@ shape = SubResource("RectangleShape2D_ix1tn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallJumpDetectRight"]
 position = Vector2(15, -24)
 shape = SubResource("RectangleShape2D_ix1tn")
+
+[node name="HealthSprite" type="Sprite2D" parent="."]
+z_index = 30
+position = Vector2(0, -45)
+texture = ExtResource("3_frtcm")
+hframes = 2
+vframes = 7

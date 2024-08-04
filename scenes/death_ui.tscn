@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7h0jyq64kwhc"]
+
+[ext_resource type="FontFile" uid="uid://dimy8xioeqvpc" path="res://assets/ui/ARCADECLASSIC.TTF" id="1_0toa6"]
+[ext_resource type="Script" path="res://death.gd" id="2_r4cms"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bphyo"]
+font = ExtResource("1_0toa6")
+font_size = 37
+font_color = Color(0.922209, 0, 0.159951, 1)
+
+[node name="DeathUI" type="Node2D"]
+script = ExtResource("2_r4cms")
+
+[node name="Label" type="Label" parent="."]
+z_index = 51
+offset_left = 85.0
+offset_top = 104.0
+offset_right = 240.0
+offset_bottom = 144.0
+text = "you died."
+label_settings = SubResource("LabelSettings_bphyo")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 50
+offset_right = 320.0
+offset_bottom = 240.0
+color = Color(0, 0, 0, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(160, 120)

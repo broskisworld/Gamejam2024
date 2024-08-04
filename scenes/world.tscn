@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cfdlypqk5lkyr"]
+[gd_scene load_steps=10 format=3 uid="uid://cfdlypqk5lkyr"]
 
 [ext_resource type="PackedScene" uid="uid://ctfvpgeuru1ef" path="res://scenes/player_physical.tscn" id="2_dq8rv"]
 [ext_resource type="PackedScene" uid="uid://b62364b65t24o" path="res://scenes/stringstar_fields.tscn" id="2_y0a4x"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bexqbrr0yw4if" path="res://scenes/hangskull_mountain.tscn" id="4_uuee7"]
 [ext_resource type="PackedScene" uid="uid://fksr6vql6514" path="res://scenes/main_camera.tscn" id="5_gd872"]
 [ext_resource type="Script" path="res://scenes/dj.gd" id="6_aemw7"]
+[ext_resource type="PackedScene" uid="uid://b7h0jyq64kwhc" path="res://scenes/death_ui.tscn" id="7_p4rc2"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_yp1u2"]
 
@@ -44,3 +45,7 @@ layer_2/tile_data = PackedInt32Array(589847, 1310720, 5, 655383, 1310720, 6, 589
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 script = ExtResource("6_aemw7")
+
+[node name="DeathUI" parent="." instance=ExtResource("7_p4rc2")]
+visible = false
+top_level = true

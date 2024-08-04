@@ -1,7 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://c5fu14ge8x5u"]
+[gd_scene load_steps=24 format=3 uid="uid://c5fu14ge8x5u"]
 
 [ext_resource type="Script" path="res://scenes/player_spirit.gd" id="1_pq1i8"]
 [ext_resource type="Texture2D" uid="uid://7v1jpx2y78e8" path="res://assets/elementals_custom/earth_inverted/physical_hero_V5_rgb-parital-recolor.png" id="2_2vrxu"]
+[ext_resource type="Texture2D" uid="uid://cqimf18htsslw" path="res://assets/ui/health.png" id="3_vy5fw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ynpa"]
 size = Vector2(20, 36)
@@ -495,3 +496,11 @@ spread = 12.07
 gravity = Vector2(2.08165e-12, 2.08165e-12)
 initial_velocity_max = 195.12
 color = Color(0, 1, 1, 1)
+
+[node name="HealthSprite" type="Sprite2D" parent="."]
+z_index = 30
+position = Vector2(0, -45)
+texture = ExtResource("3_vy5fw")
+hframes = 2
+vframes = 7
+frame = 1
