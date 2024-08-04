@@ -478,3 +478,20 @@ libraries = {
 "": SubResource("AnimationLibrary_v14ds")
 }
 autoplay = "pulse_light"
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+z_index = 9
+position = Vector2(-9.60799e-09, -19)
+rotation = 0.110031
+emitting = false
+amount = 7
+lifetime = 0.2
+speed_scale = 5.16
+explosiveness = 0.52
+emission_shape = 3
+emission_rect_extents = Vector2(5, 12)
+direction = Vector2(1, 2.08165e-12)
+spread = 12.07
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_max = 195.12
+color = Color(0, 1, 1, 1)
