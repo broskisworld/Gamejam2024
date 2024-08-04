@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ctfvpgeuru1ef"]
+[gd_scene load_steps=19 format=3 uid="uid://ctfvpgeuru1ef"]
 
 [ext_resource type="Script" path="res://scenes/player_physical.gd" id="1_5xhju"]
 [ext_resource type="Texture2D" uid="uid://cxhfyq323jt0s" path="res://assets/elementals_custom/earth/earth_v1_ONLY_IDLE_DONE.png" id="2_0vdku"]
@@ -395,6 +395,9 @@ _data = {
 "take_hit": SubResource("Animation_ng47d")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ix1tn"]
+size = Vector2(10, 50)
+
 [node name="PlayerPhysical" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 3
@@ -418,3 +421,15 @@ libraries = {
 "": SubResource("AnimationLibrary_yq52v")
 }
 autoplay = "idle"
+
+[node name="WallJumpDetectLeft" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallJumpDetectLeft"]
+position = Vector2(-15, -24)
+shape = SubResource("RectangleShape2D_ix1tn")
+
+[node name="WallJumpDetectRight" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallJumpDetectRight"]
+position = Vector2(15, -24)
+shape = SubResource("RectangleShape2D_ix1tn")

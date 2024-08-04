@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var ROLL_SPEED = 280.0
 @export var JUMP_VELOCITY = -400.0
 @export var MIN_ROLL_SEC = 0.4
+@export var WALL_JUMP_VELOCITY = Vector2(400.0, -400.0)
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -13,6 +14,8 @@ var just_landed_on_floor = false
 var is_diving = false
 var is_rolling = false
 var roll_countdown = 0
+var is_wall_jumping = false
+var wall_jump_control_lock = false
 
 @onready var ap = $AnimationPlayer;
 @onready var sprite = $Sprite2D;
@@ -23,6 +26,9 @@ func _ready():
 
 func _physics_process(delta):
 	# Start of loop status vars
+	if is_on_floor():
+		is_wall_jumping = false
+		wall_jump_control_lock = false
 	if is_on_floor() and not was_on_floor:
 		just_landed_on_floor = true
 	else:
@@ -31,6 +37,8 @@ func _physics_process(delta):
 		roll_countdown -= delta
 	if roll_countdown < 0:
 		is_rolling = false
+	if Input.is_action_just_released("move_left") or Input.is_action_just_released("move_right"):
+		wall_jump_control_lock = false
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -68,14 +76,31 @@ func handle_movement_input():
 		start_roll()
 
 	# Get the input direction and handle the movement/deceleration.
-	if is_rolling:
+	if is_wall_jumping:
+		if wall_jump_control_lock:
+			pass
+		elif Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
+			direction = Input.get_axis("move_left", "move_right")
+	elif is_rolling:
 		velocity.x = direction * ROLL_SPEED;
 	else:
 		if is_on_floor():
 			direction = Input.get_axis("move_left", "move_right")
 		elif Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
 			direction = Input.get_axis("move_left", "move_right")
-		if direction:
+			
+			if Input.is_action_just_pressed("jump") and not is_wall_jumping:
+				if $WallJumpDetectLeft.get_overlapping_bodies().size() > 0 and $WallJumpDetectRight.get_overlapping_bodies().size() > 0:
+					if Input.get_axis("move_left", "move_right") != 0:
+						direction = -Input.get_axis("move_left", "move_right")
+						start_wall_jump()
+				elif $WallJumpDetectLeft.get_overlapping_bodies().size() > 0:
+					direction = 1
+					start_wall_jump()
+				elif $WallJumpDetectRight.get_overlapping_bodies().size() > 0:
+					direction = -1
+					start_wall_jump()
+		if direction and not is_wall_jumping:
 			velocity.x = direction * SPEED
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -91,6 +116,13 @@ func start_roll():
 		# Stay going in the same direction unless you're not moving
 		is_rolling = true
 		roll_countdown = MIN_ROLL_SEC
+
+func start_wall_jump():
+	if not is_wall_jumping:
+		is_wall_jumping = true
+		velocity.y = WALL_JUMP_VELOCITY.y
+		velocity.x = direction * WALL_JUMP_VELOCITY.x
+		wall_jump_control_lock = true
 
 func update_animation():
 	if false:
@@ -111,7 +143,10 @@ func update_animation():
 	else:
 		ap.play("idle")
 	
-	if GlobalPlayer.is_controlling_physical and Input.get_axis("move_left", "move_right") != 0:
-		sprite.flip_h = (Input.get_axis("move_left", "move_right") == -1)
+	if GlobalPlayer.is_controlling_physical:
+		if Input.get_axis("move_left", "move_right") != 0:
+			sprite.flip_h = (Input.get_axis("move_left", "move_right") == -1)
+		elif is_wall_jumping:
+			sprite.flip_h = direction == -1
 	
 	#is_rolling = ap.current_animation == "roll";

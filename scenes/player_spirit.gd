@@ -5,7 +5,7 @@ extends CharacterBody2D
 @export var DASH_SPEED = 650.0
 @export var JUMP_VELOCITY = -400.0
 @export var MIN_ROLL_SEC = 0.4
-@export var MIN_DASH_SEC = 0.1
+@export var MIN_DASH_SEC = 0.3
 @export var COMBO_TIMEOUT = 0.3
 @export var MAX_COMBO_CHAIN = 2 # Maximum key presses in a combo
 
@@ -100,18 +100,15 @@ func handle_movement_input():
 	if allow_dash and key_combo == "AA" and not (is_rolling or is_dashing):
 		direction = -1
 		start_dash()
-		print("Start dash!")
 	elif allow_dash and key_combo == "DD" and not (is_rolling or is_dashing):
 		direction = 1
 		start_dash()
-		print("Start dash!")
 
 	# Get the input direction and handle the movement/deceleration.
 	if is_rolling:
 		velocity.x = direction * ROLL_SPEED;
 	elif is_dashing:
 		velocity.x = direction * DASH_SPEED;
-		print("Dashing!!!")
 	else:
 		if is_on_floor():
 			direction = Input.get_axis("move_left", "move_right")
@@ -135,6 +132,7 @@ func start_roll():
 		roll_countdown = MIN_ROLL_SEC
 
 func start_dash():
+	key_combo = ""
 	if not is_dashing:
 		# Stay going in the same direction unless you're not moving
 		is_dashing = true
