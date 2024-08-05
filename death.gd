@@ -10,10 +10,12 @@ func _ready():
 
 func on_die():
 	visible = true
+	Global.game_over = true
 	$Camera2D.make_current()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed("ui_accept"):
+	if visible and Input.is_action_just_pressed("ui_accept"):
 		get_tree().reload_current_scene()
+		Global.game_over = false
 		

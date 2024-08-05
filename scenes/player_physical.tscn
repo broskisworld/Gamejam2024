@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://ctfvpgeuru1ef"]
+[gd_scene load_steps=21 format=3 uid="uid://ctfvpgeuru1ef"]
 
 [ext_resource type="Script" path="res://scenes/player_physical.gd" id="1_5xhju"]
-[ext_resource type="Texture2D" uid="uid://cxhfyq323jt0s" path="res://assets/elementals_custom/earth/earth_v1_ONLY_IDLE_DONE.png" id="2_0vdku"]
+[ext_resource type="Texture2D" uid="uid://ct5l777ok78nw" path="res://assets/elementals_custom/physical/physical_body.png" id="2_l2w1f"]
 [ext_resource type="Texture2D" uid="uid://cqimf18htsslw" path="res://assets/ui/health.png" id="3_frtcm"]
+[ext_resource type="AudioStream" uid="uid://dn1ch1ygluavr" path="res://assets/sounds/walking.mp3" id="4_xe1ay"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ynpa"]
 size = Vector2(20, 36)
@@ -408,7 +409,7 @@ script = ExtResource("1_5xhju")
 visibility_layer = 257
 z_index = 10
 position = Vector2(0, -56)
-texture = ExtResource("2_0vdku")
+texture = ExtResource("2_l2w1f")
 hframes = 25
 vframes = 14
 frame = 1
@@ -441,3 +442,7 @@ position = Vector2(0, -45)
 texture = ExtResource("3_frtcm")
 hframes = 2
 vframes = 7
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_xe1ay")
+volume_db = 13.0
