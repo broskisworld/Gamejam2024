@@ -405,6 +405,21 @@ fill = 1
 fill_from = Vector2(0.502137, 0.510684)
 fill_to = Vector2(0.136752, 0.861111)
 
+[sub_resource type="Animation" id="Animation_ql4ep"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.5]
+}
+
 [sub_resource type="Animation" id="Animation_gi6rn"]
 resource_name = "pulse_light"
 length = 2.0
@@ -420,21 +435,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(0.466517, 0.466517, 0.466517, 0.466517, 0.466517),
 "update": 0,
 "values": [2.0, 1.0, 2.0, 3.0, 2.0]
-}
-
-[sub_resource type="Animation" id="Animation_ql4ep"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:energy")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.5]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v14ds"]

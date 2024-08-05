@@ -27,7 +27,7 @@ var allow_dash = true
 var is_dashing = false
 var last_key_delta = 0    # Time since last keypress
 var dash_countdown = 0
-var key_combo = []        # Current combo
+var key_combo = ""        # Current combo
 
 @onready var ap = $AnimationPlayer
 @onready var sprite = $Sprite2D
