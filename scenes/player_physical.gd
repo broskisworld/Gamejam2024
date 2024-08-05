@@ -23,6 +23,11 @@ var roll_countdown = 0
 var is_wall_jumping = false
 var wall_jump_control_lock = false
 
+const HURT_SOUND = preload("res://assets/sounds/hurt.mp3")
+const HEAL_SOUND = preload("res://assets/sounds/heal.mp3")
+const DEATH_SOUND = preload("res://assets/sounds/death.mp3")
+const WALKING_SOUND = preload("res://assets/sounds/walking.mp3")
+
 @onready var ap = $AnimationPlayer;
 @onready var sprite = $Sprite2D;
 
@@ -31,6 +36,9 @@ func _ready():
 	GlobalPlayer.changed_bodies_sig.connect(on_swapped_bodies)
 
 func _physics_process(delta):
+	if Global.game_over:
+		return
+	
 	# Start of loop status vars
 	if is_on_floor():
 		is_wall_jumping = false
@@ -56,6 +64,8 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 	update_animation()
+	
+	play_sounds()
 	
 	# End of current physics loop status vars
 	was_on_floor = is_on_floor()
@@ -136,13 +146,17 @@ func start_wall_jump():
 
 func heal(amt):
 	health += amt
-	# TODO: play heal sound
+	$HealthSprite.frame_coords.y = 6 - health
+	$AudioStreamPlayer.stream = HEAL_SOUND
+	$AudioStreamPlayer.play()
 	health_change_sig.emit()
 
 func hurt(amt):
 	health -= amt
 	$HealthSprite.frame_coords.y = 6 - health
-	# TODO: play hurt sound
+	
+	$AudioStreamPlayer.stream = HURT_SOUND
+	$AudioStreamPlayer.play()
 	
 	if health <= 0:
 		die()
@@ -150,6 +164,8 @@ func hurt(amt):
 		health_change_sig.emit()
 
 func die():
+	$AudioStreamPlayer.stream = DEATH_SOUND
+	$AudioStreamPlayer.play()
 	die_sig.emit()
 	get_tree().set_current_scene(preload("res://scenes/death_ui.tscn").instantiate())
 
@@ -177,5 +193,13 @@ func update_animation():
 			sprite.flip_h = (Input.get_axis("move_left", "move_right") == -1)
 		elif is_wall_jumping:
 			sprite.flip_h = direction == -1
-	
-	#is_rolling = ap.current_animation == "roll";
+
+func play_sounds():
+	if ap.current_animation == "run":
+		if not $AudioStreamPlayer.is_playing():
+			if $AudioStreamPlayer.stream != WALKING_SOUND:
+				$AudioStreamPlayer.stream = WALKING_SOUND
+			$AudioStreamPlayer.play()
+	else:
+		if $AudioStreamPlayer.stream == WALKING_SOUND:
+			$AudioStreamPlayer.stop()
