@@ -55,9 +55,11 @@ func _physics_process(delta):
 		if is_going_to_point_a:
 			velocity.x = -SPEED
 			$Sprite2D.flip_h = true
+			$Sprite2D.offset.x = -19
 		else:
 			velocity.x = SPEED
 			$Sprite2D.flip_h = false
+			$Sprite2D.offset.x = 0
 			
 
 	move_and_slide()

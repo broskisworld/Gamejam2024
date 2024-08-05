@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var ROLL_SPEED = 280.0
 @export var JUMP_VELOCITY = -400.0
 @export var MIN_ROLL_SEC = 0.4
-@export var WALL_JUMP_VELOCITY = Vector2(400.0, -400.0)
+@export var WALL_JUMP_VELOCITY = Vector2(300.0, -300.0)
 @export var STARTING_HEALTH = 6
 
 # Health & progression
