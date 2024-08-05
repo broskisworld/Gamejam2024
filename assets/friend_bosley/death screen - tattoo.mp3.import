@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d31wn5x051bp3"
+path="res://.godot/imported/death screen - tattoo.mp3-5ef094d5285825bff5852635a4fa3d3d.mp3str"
+
+[deps]
+
+source_file="res://assets/friend_bosley/death screen - tattoo.mp3"
+dest_files=["res://.godot/imported/death screen - tattoo.mp3-5ef094d5285825bff5852635a4fa3d3d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
