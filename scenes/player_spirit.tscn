@@ -1,8 +1,7 @@
-[gd_scene load_steps=25 format=3 uid="uid://c5fu14ge8x5u"]
+[gd_scene load_steps=24 format=3 uid="uid://c5fu14ge8x5u"]
 
 [ext_resource type="Script" path="res://scenes/player_spirit.gd" id="1_pq1i8"]
 [ext_resource type="Texture2D" uid="uid://7v1jpx2y78e8" path="res://assets/elementals_custom/earth_inverted/physical_hero_V5_rgb-parital-recolor.png" id="2_2vrxu"]
-[ext_resource type="PackedScene" uid="uid://di0yueuhhtqih" path="res://scenes/spirit_projectile.tscn" id="2_nq064"]
 [ext_resource type="Texture2D" uid="uid://cqimf18htsslw" path="res://assets/ui/health.png" id="3_vy5fw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ynpa"]
@@ -406,21 +405,6 @@ fill = 1
 fill_from = Vector2(0.502137, 0.510684)
 fill_to = Vector2(0.136752, 0.861111)
 
-[sub_resource type="Animation" id="Animation_ql4ep"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:energy")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.5]
-}
-
 [sub_resource type="Animation" id="Animation_gi6rn"]
 resource_name = "pulse_light"
 length = 2.0
@@ -438,6 +422,21 @@ tracks/0/keys = {
 "values": [2.0, 1.0, 2.0, 3.0, 2.0]
 }
 
+[sub_resource type="Animation" id="Animation_ql4ep"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.5]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v14ds"]
 _data = {
 "RESET": SubResource("Animation_ql4ep"),
@@ -449,7 +448,6 @@ visibility_layer = 257
 collision_layer = 512
 collision_mask = 768
 script = ExtResource("1_pq1i8")
-PROJECTILE_SCENE = ExtResource("2_nq064")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 10
@@ -506,9 +504,3 @@ texture = ExtResource("3_vy5fw")
 hframes = 2
 vframes = 7
 frame = 1
-
-[node name="FireLocation" type="Node2D" parent="."]
-position = Vector2(14, -19)
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-volume_db = 13.0

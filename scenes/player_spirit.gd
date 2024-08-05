@@ -9,8 +9,6 @@ extends CharacterBody2D
 @export var COMBO_TIMEOUT = 0.3
 @export var MAX_COMBO_CHAIN = 2 # Maximum key presses in a combo
 @export var STARTING_HEALTH = 6
-@export var ATTACK_COOLDOWN_SEC = 0.75
-@export var PROJECTILE_SCENE : PackedScene
 
 # Health & progression
 var health = STARTING_HEALTH
@@ -27,21 +25,13 @@ var is_rolling = false
 var roll_countdown = 0
 var allow_dash = true
 var is_dashing = false
-var last_key_delta = 0
+var last_key_delta = 0    # Time since last keypress
 var dash_countdown = 0
-var key_combo = ""
-var is_attacking = false
-var attack_cooldown_countdown = 0
+var key_combo = []        # Current combo
 
 @onready var ap = $AnimationPlayer
 @onready var sprite = $Sprite2D
 @onready var dash_particles = $CPUParticles2D
-
-const HURT_SOUND = preload("res://assets/sounds/hurt.mp3")
-const HEAL_SOUND = preload("res://assets/sounds/heal.mp3")
-const DEATH_SOUND = preload("res://assets/sounds/death.mp3")
-const WALKING_SOUND = preload("res://assets/sounds/walking.mp3")
-const PROJECTILE_SOUND = preload("res://assets/sounds/projectile_fire.mp3")
 
 func _ready():
 	GlobalPlayer.spirit_body = self
@@ -56,12 +46,10 @@ func _input(event):
 		if key_combo.length() > MAX_COMBO_CHAIN:               # Prune if necessary
 			key_combo = key_combo.substr(1)
 		
+		print(key_combo)                                     # Log the combo (could pass to combo evaluator)
 		last_key_delta = 0                                   # Reset keypress timer
 
 func _physics_process(delta):
-	if Global.game_over:
-		return
-	
 	# Start of loop status vars
 	if is_on_floor() and not was_on_floor:
 		just_landed_on_floor = true
@@ -78,9 +66,6 @@ func _physics_process(delta):
 	last_key_delta += delta
 	if last_key_delta > COMBO_TIMEOUT:
 		key_combo = ""
-	attack_cooldown_countdown -= delta
-	if attack_cooldown_countdown < 0:
-		is_attacking = false
 	
 	# Add the gravity.
 	if not is_on_floor() and not is_dashing:
@@ -93,8 +78,6 @@ func _physics_process(delta):
 	
 	update_animation()
 	
-	play_sounds()
-	
 	# End of current physics loop status vars
 	was_on_floor = is_on_floor()
 
@@ -104,9 +87,6 @@ func handle_movement_input():
 	# Debug: decrement health
 	if Input.is_action_just_pressed("debug_health"):
 		hurt(1)
-	
-	if not is_attacking and Input.is_action_just_pressed("attack") and attack_cooldown_countdown < 0:
-		fire_projectile()
 	
 	# Handle jump.
 	if Input.is_action_pressed("jump") and is_on_floor():
@@ -168,31 +148,15 @@ func start_dash():
 		is_dashing = true
 		dash_countdown = MIN_DASH_SEC
 
-func fire_projectile():
-	$AudioStreamPlayer.stream = PROJECTILE_SOUND
-	$AudioStreamPlayer.play()
-	is_attacking = true
-	var fireball = PROJECTILE_SCENE.instantiate()
-	if direction != 0:
-		fireball.direction = direction
-	else:
-		fireball.direction = -1 if sprite.flip_h else 1
-	owner.add_child(fireball)
-	fireball.transform = $FireLocation.global_transform
-
 func heal(amt):
 	health += amt
-	$HealthSprite.frame_coords.y = 6 - health
-	$AudioStreamPlayer.stream = HEAL_SOUND
-	$AudioStreamPlayer.play()
+	# TODO: play heal sound
 	health_change_sig.emit()
 
 func hurt(amt):
 	health -= amt
 	$HealthSprite.frame_coords.y = 6 - health
-	
-	$AudioStreamPlayer.stream = HURT_SOUND
-	$AudioStreamPlayer.play()
+	# TODO: play hurt sound
 	
 	if health <= 0:
 		die()
@@ -200,8 +164,6 @@ func hurt(amt):
 		health_change_sig.emit()
 
 func die():
-	$AudioStreamPlayer.stream = DEATH_SOUND
-	$AudioStreamPlayer.play()
 	die_sig.emit()
 	get_tree().set_current_scene(preload("res://scenes/death_ui.tscn").instantiate())
 
@@ -233,12 +195,4 @@ func update_animation():
 	if GlobalPlayer.is_controlling_spirit and Input.get_axis("move_left", "move_right") != 0:
 		sprite.flip_h = (Input.get_axis("move_left", "move_right") == -1)
 	
-func play_sounds():
-	if ap.current_animation == "run":
-		if $AudioStreamPlayer.stream != WALKING_SOUND:
-			$AudioStreamPlayer.stream = WALKING_SOUND
-		if not $AudioStreamPlayer.is_playing():
-			$AudioStreamPlayer.play()
-	else:
-		if $AudioStreamPlayer.stream == WALKING_SOUND:
-			$AudioStreamPlayer.stop()
+	#is_rolling = ap.current_animation == "roll";
