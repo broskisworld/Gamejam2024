@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://clcupaea270h1"
+path="res://.godot/imported/game - towered NIGHT.mp3-a72371f90ff24bab7b9c97d0a300fc50.mp3str"
+
+[deps]
+
+source_file="res://assets/friend_bosley/game - towered NIGHT.mp3"
+dest_files=["res://.godot/imported/game - towered NIGHT.mp3-a72371f90ff24bab7b9c97d0a300fc50.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

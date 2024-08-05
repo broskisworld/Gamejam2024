@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d2uyi34mdamlx"
+path="res://.godot/imported/game tutorial - beauty NIGHT.mp3-81bed8b728c29230f1f6dd5d647d9e13.mp3str"
+
+[deps]
+
+source_file="res://assets/friend_bosley/game tutorial - beauty NIGHT.mp3"
+dest_files=["res://.godot/imported/game tutorial - beauty NIGHT.mp3-81bed8b728c29230f1f6dd5d647d9e13.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
